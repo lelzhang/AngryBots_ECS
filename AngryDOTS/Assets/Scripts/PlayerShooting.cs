@@ -113,7 +113,7 @@ public class PlayerShooting : MonoBehaviour
 	{
 		int max = spreadAmount / 2;
 		int min = -max;
-		int totalAmount = spreadAmount * spreadAmount;
+		int totalAmount = (2*max) * (2*max);
 		
 		Vector3 tempRot = rotation;
 		int index = 0;
