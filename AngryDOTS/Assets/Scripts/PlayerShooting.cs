@@ -23,14 +23,15 @@ public class PlayerShooting : MonoBehaviour
 
 	EntityManager manager; //获取EntityManager
 	Entity bulletEntityPrefab; //子弹转换成Entity
-
+	BlobAssetStore blobAssetStore;
 
 	void Start()
 	{
 		if (useECS)
 		{
+			blobAssetStore = new BlobAssetStore();
 			manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, new BlobAssetStore());
+			var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blobAssetStore);
 			bulletEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(bulletPrefab, settings);
 		}
 	}
@@ -105,6 +106,7 @@ public class PlayerShooting : MonoBehaviour
 
 		manager.SetComponentData(bullet, new Translation { Value = gunBarrel.position });
 		manager.SetComponentData(bullet, new Rotation { Value = Quaternion.Euler(rotation) });
+		//manager.DestroyEntity(bullet);
 	}
 
 	void SpawnBulletSpreadECS(Vector3 rotation)
@@ -134,6 +136,12 @@ public class PlayerShooting : MonoBehaviour
 			}
 		}
 		bullets.Dispose();
+	}
+
+    private void OnDestroy()
+    {
+		blobAssetStore.Dispose();//必须写这个 不然会报错
+
 	}
 }
 

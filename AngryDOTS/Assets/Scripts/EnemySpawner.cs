@@ -20,14 +20,16 @@ public class EnemySpawner : MonoBehaviour
 	Entity enemyEntityPrefab;
 
 	float cooldown;
-
+	BlobAssetStore blobAssetStore;
 
 	void Start()
 	{
 		if (useECS)
 		{
+
+			blobAssetStore = new BlobAssetStore();
 			manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, new BlobAssetStore());
+			var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blobAssetStore);
 			enemyEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(enemyPrefab, settings);
 		}
 	}
@@ -62,5 +64,10 @@ public class EnemySpawner : MonoBehaviour
 				manager.SetComponentData(enemy, new Translation { Value = pos });
 			}
 		}
+	}
+
+    private void OnDestroy()
+    {
+		blobAssetStore.Dispose(); //必须写这个 不然会报错
 	}
 }
