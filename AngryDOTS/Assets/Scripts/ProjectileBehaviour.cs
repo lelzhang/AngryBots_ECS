@@ -27,7 +27,7 @@ public class ProjectileBehaviour : MonoBehaviour, IConvertGameObjectToEntity
 
 	void OnTriggerEnter(Collider theCollider)
 	{
-
+		Debug.Log($"{theCollider.name}发生了碰撞!");
 		if (theCollider.CompareTag("Enemy") || theCollider.CompareTag("Environment"))
 			RemoveProjectile();
 	}

@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
 	[Header("Enemy Spawn Info")]
 	public bool spawnEnemies = true;
+
+	[HideInInspector]
 	public bool useECS = false;
 	public float enemySpawnRadius = 10f;
 	public GameObject enemyPrefab;

@@ -34,6 +34,7 @@ public class EnemyBehaviour : MonoBehaviour, IConvertGameObjectToEntity
 	//Enemy Collision
 	void OnTriggerEnter(Collider theCollider)
 	{
+		Debug.Log($"{theCollider.name}发生了碰撞!");
 		if (!theCollider.CompareTag("Bullet"))
 			return;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+	[HideInInspector]
 	public bool useECS = false;
 	public bool spreadShot = false;
 
@@ -20,8 +21,8 @@ public class PlayerShooting : MonoBehaviour
 
 	float timer;
 
-	EntityManager manager;
-	Entity bulletEntityPrefab;
+	EntityManager manager; //获取EntityManager
+	Entity bulletEntityPrefab; //子弹转换成Entity
 
 
 	void Start()

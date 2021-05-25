@@ -4,6 +4,13 @@ public class Settings : MonoBehaviour
 {
 	static Settings instance;
 
+	//子弹和怪 同时使用ECS系统才能发生碰撞.
+	public PlayerShooting playerShooting;
+	public EnemySpawner enemySpawner;
+
+	[Header("Whether Use ECS System")]
+	public bool UseECS;
+
 	[Header("Game Object References")]
 	public Transform player;
 
@@ -31,6 +38,12 @@ public class Settings : MonoBehaviour
 			Destroy(gameObject);
 		else
 			instance = this;
+
+	    
+		playerShooting.useECS = UseECS;
+		enemySpawner.useECS = UseECS;
+		
+
 	}
 
 	public static Vector3 GetPositionAroundPlayer(float radius)
